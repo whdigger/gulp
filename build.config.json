@@ -1,0 +1,40 @@
+{
+  "srcPath": "src",
+  "buildPath": "build",
+  "productionPath": "product",
+  "src": {
+    "js": [
+      "js/**/*.js"
+    ],
+    "css": [
+          "css/**/*.css"
+    ],
+    "postcss": [
+      "postcss/front/**/*.pcss",
+      "!postcss/front/constant.pcss"
+    ],
+    "mixinsDir": "postcss/mixins/",
+    "img": [
+      "img/**/*.*"
+    ],
+    "fonts": [
+      "fonts/**/*.*"
+    ],
+    "html": [
+      "*.html"
+    ]
+  },
+  "change": {
+    "postcss": {
+      "postcss/front/": "css/"
+    }
+  },
+  "watch": {
+    "html": "**/*.html",
+    "js": "js/**/*.js",
+    "css": "css/**/*.css",
+    "postcss": "postcss/**/*.css",
+    "img": "img/**/*.*",
+    "fonts": "fonts/**/*.*"
+  }
+}

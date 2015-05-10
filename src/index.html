@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/slider/prettyPhoto.min.css">
+    <link rel="stylesheet" type="text/css" href="css/slider/flexslider.min.css">
+    <link rel="stylesheet" type="text/css" href="css/slider/slider.min.css?rev=@@hash">
+
+    <link rel="stylesheet" type="text/css" href="css/general/icons.min.css?rev=@@hash"/>
+    <link rel="stylesheet" type="text/css" href="css/general/forms.min.css?rev=@@hash">
+    <link rel="stylesheet" type="text/css" href="css/general/theme.min.css?rev=@@hash">
+    <link rel="stylesheet" type="text/css" href="css/general/map.min.css?rev=@@hash">
+
+    <!--[if lt IE 9]>
+    <script src="js/general/html5shiv.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="nav-container">
+    <div class="container">
+
+    //= template/nav.html
+
+    //= template/header.html
+
+    <section class="page main-page">
+        <h1> Последние новости проекта</h1>
+        <article>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem
+                        molestias provident quaerat quo reprehenderit voluptate. Atque debitis delectus dolorem
+                        doloremque
+                        ex facilis fuga impedit incidunt, labore libero magni molestias nam porro, qui quibusdam
+                        reiciendis
+                        repudiandae rerum similique tempore tenetur totam, unde velit voluptate. Autem distinctio earum
+                        esse
+                        eum, excepturi iste minima, necessitatibus nihil odio omnis pariatur placeat quibusdam quidem
+                        rem
+                        similique, tempore voluptatibus.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="sticker-travel">
+                    <a href="" class="b-theme-teaser__cover"></a>
+                </div>
+
+                <div class="map">
+                    <div class="map-section top-part"></div>
+                    <div class="map-section left-part1"></div>
+                    <div class="map-section left-part2"></div>
+                    <div class="map-section left-part3"></div>
+                    <div class="map-section left-part4"></div>
+                    <div class="map-section left-part5"></div>
+                    <div class="map-section left-part6"></div>
+                    <div class="map-section left-part7"></div>
+                    <div class="map-section left-part8"></div>
+                    <div class="map-section left-part9"></div>
+                    <div class="map-section left-part10"></div>
+                    <div class="map-section left-part11"></div>
+                    <div id="map"></div>
+                    <div class="map-section right-part1"></div>
+                    <div class="map-section right-part2"></div>
+                    <div class="map-section right-part3"></div>
+                    <div class="map-section right-part4"></div>
+                    <div class="map-section right-part5"></div>
+                    <div class="map-section right-part6"></div>
+                    <div class="map-section right-part7"></div>
+                    <div class="map-section right-part8"></div>
+                    <div class="map-section right-part9"></div>
+                    <div class="map-section right-part10"></div>
+                    <div class="map-section right-part11"></div>
+                    <div class="map-section bottom-part"></div>
+                </div>
+            </div>
+        </div>
+
+        <h1> Цель проекта проекта</h1>
+        <article>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet exercitationem
+                        molestias provident quaerat quo reprehenderit voluptate. Atque debitis delectus dolorem
+                        doloremque
+                        ex facilis fuga impedit incidunt, labore libero magni molestias nam porro, qui quibusdam
+                        reiciendis
+                        repudiandae rerum similique tempore tenetur totam, unde velit voluptate. Autem distinctio earum
+                        esse
+                        eum, excepturi iste minima, necessitatibus nihil odio omnis pariatur placeat quibusdam quidem
+                        rem
+                        similique, tempore voluptatibus.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+    //= template/footer.html
+</div>
+</div>
+
+<script type="text/javascript" src="js/jquery/modernizr.custom.79639.min.js"></script>
+<script type="text/javascript" src="js/jquery/jquery.prettyPhoto.min.js"></script>
+
+<script type="text/javascript" src="js/slider/all-functions.min.js?rev=@@hash"></script>
+<script type="text/javascript" src="js/slider/classList.min.js"></script>
+<script type="text/javascript" src="js/slider/bespoke.min.js?rev=@@hash"></script>
+<script type="text/javascript" src="js/jquery/jquery.flexslider.min.js"></script>
+<script>
+    $(document).ready(function ($) {
+
+        /* LEGEND
+         scrollinit(); - default with no additional pages.
+
+         scrollinit('carousel', 1, 0, true, true, true, true, true); - custom settings
+
+         1. Scroll effect: 'classic', 'cube', 'carousel', 'concave', 'coverflow', 'spiraltop', 'spiralbottom', 'classictilt'.
+         2. Number of scroll pages. '1' means no additional pages.
+         3. Select which slide to be on focus when slider is loaded. '0' means first slide.
+         4. Enable / disable keys navigation: true, false.
+         5. Enable / disable buttons navigation: true, false.
+         6. Enable / disable slide gestures navigation on touch devices: true, false.
+         7. Enable / disable click navigation: true, false.
+         8. Enable / disable mouse wheel navigation: true, false.
+         */
+        scrollinit("carousel", 3, 0, true, true, true, true, false);
+    });
+</script>
+
+//= template/map.html
+//= template/bootbox.html
+
+</body>
+</html>
