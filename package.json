@@ -1,10 +1,10 @@
 {
-  "name": "cbv-project",
+  "name": "Genproject",
   "version": "0.1.0",
-  "description": "Conception Bon Voyage",
+  "description": "Workflow automatic generation frontend ",
   "main": "gulpfile.js",
   "private": true,
-  "author": "Necrom <landstage@yandex.ru> (http://cbvage.com)",
+  "author": "Whdigger <landstage@yandex.ru> (http://cbvage.com)",
   "license": "MIT",
   "engines": {
     "node": "0.12.2"
@@ -50,8 +50,13 @@
     "per": "./bin/permission.sh",
     "prod": "gulp copybower && gulp build-clean && gulp prod && gulp product-clean && gulp movToProd",
     "dev": "gulp copybower && gulp build-clean && gulp build",
-    "devw": "gulp copybower && gulp build-clean && gulp",
-    "devs": "gulp copybower && gulp build-clean && gulp dev "
+    "devs": "gulp copybower && gulp build-clean && gulp dev",
+    "devws": "gulp copybower && gulp build-clean && gulp"
   },
-  "keywords": []
+  "keywords": [
+    "frontend",
+    "production",
+    "development",
+    "automatic generation"
+  ]
 }

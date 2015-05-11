@@ -248,7 +248,6 @@ gulp.task('img', function () {
 });
 
 gulp.task('copybower', function () {
-    //var cssFilter = gFilter(configData.filter.css);
     var jsFilter = gFilter(configData.filter.js);
     var fontFilter = gFilter(configData.filter.fonts);
     var imgFilter = gFilter(configData.filter.img);
