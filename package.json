@@ -24,16 +24,16 @@
     "gulp-notify": "^2.2.0",
     "gulp-postcss": "^5.1.6",
     "gulp-rename": "^1.2.2",
-    "gulp-rev-append": "^0.1.6",
+    "gulp-rev-easy": "^1.0.9",
     "gulp-rigger": "^0.5.8",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-strip-debug": "^1.0.2",
     "gulp-uglify": "^1.2.0",
-    "gulp-uncss": "^1.0.1",
     "gulp-util": "^3.0.4",
     "gulp-watch": "^4.2.4",
     "imagemin-pngquant": "^4.1.0",
     "main-bower-files": "^2.7.0",
+    "postcss-calc": "^4.0.1",
     "postcss-color-alpha": "0.0.8",
     "postcss-color-function": "^1.2.0",
     "postcss-import": "^5.2.2",
@@ -47,7 +47,11 @@
   "devDependencies": {},
   "scripts": {
     "ld": "./bin/listdir.sh",
-    "per": "./bin/permission.sh"
+    "per": "./bin/permission.sh",
+    "prod": "gulp copybower && gulp build-clean && gulp prod && gulp product-clean && gulp movToProd",
+    "dev": "gulp copybower && gulp build-clean && gulp build",
+    "devw": "gulp copybower && gulp build-clean && gulp",
+    "devs": "gulp copybower && gulp build-clean && gulp dev "
   },
   "keywords": []
 }

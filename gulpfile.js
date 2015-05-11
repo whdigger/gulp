@@ -2,8 +2,6 @@
 
 process.env.NODE_ENV = 'development';
 var production = process.env.NODE_ENV === 'production';
-// Флаг для Dev режима
-var globalClean = true;
 
 /********  START Function  ********/
 var wrapBuild = function (curString) {
@@ -19,6 +17,10 @@ var watchToFolder = function (str) {
 
 var watchToChangeBuild = function (stringWatch) {
     return wrapBuild(watchToFolder(stringWatch));
+};
+
+var watchToChangeSrc = function (stringWatch) {
+    return wrapSrc(watchToFolder(stringWatch));
 };
 /********  END Function  ********/
 
@@ -44,6 +46,7 @@ var gulp              = require('gulp'),
     postcssImport     = require('postcss-import'),
     postcssColorFunc  = require('postcss-color-function'),
     postcssPxtorem    = require('postcss-pxtorem'),
+    postcssCalc       = require('postcss-calc'),
     colorAlpha        = require('postcss-color-alpha'),
 
     rename            = require('gulp-rename'),
@@ -53,7 +56,7 @@ var gulp              = require('gulp'),
 /* Development*/
 var sourcemaps  = require('gulp-sourcemaps'),
     rigger      = require('gulp-rigger'),
-    rev         = require('gulp-rev-append'),
+    rev         = require('gulp-rev-easy'),
     gutil       = require('gulp-util'),
     browserSync = require('browser-sync'),
     watch       = require('gulp-watch'),
@@ -78,29 +81,37 @@ var configLocal = {
             baseDir: configData.buildPath
         },
         reloadDelay: 2000,
-        tunnel: true,
+        //tunnel: true,
         host: 'localhost',
         port: 9000,
         logPrefix: "cbv"
     }
 };
 
-gulp.task('default', ['build', 'webserver', 'watch']);
-gulp.task('production', ['setEnvProd', 'build', 'movToProd']);
-gulp.task('build', ['html', 'js', 'css', 'fonts', 'img']);
+/* Для запуска использовать команды
+*  npm run dev
+*  npm run prod
+*/
 
-//gulp.task('build-clean',['copy-bower'], function () {
+gulp.task('default', ['build', 'watch']);
+gulp.task('dev', ['webserver', 'watch']);
+gulp.task('prod', ['setEnvProd', 'build']);
+gulp.task('build', ['html', 'js', 'css', 'fonts', 'img', 'postcss']);
+
 gulp.task('build-clean', function () {
-    if (globalClean) {
-        globalClean = false;
-        return gulp.src([configData.buildPath], {read: false})
-            .pipe(stripDebug())
-            .pipe(vinylPaths(del));
-    }
+    return gulp.src([configData.buildPath], {read: false})
+        .pipe(stripDebug())
+        .pipe(vinylPaths(del));
 });
 
-gulp.task('webserver', function () {
-    browserSync(configLocal.browserSync);
+gulp.task('product-clean', function () {
+    return gulp.src([configData.buildPath], {read: false})
+        .pipe(stripDebug())
+        .pipe(vinylPaths(del));
+});
+
+gulp.task('webserver', ['build'], function (cb) {
+    browserSync(configLocal.browserSync, cb);
 });
 
 
@@ -114,14 +125,7 @@ gulp.task('setEnvProd', function () {
     }
 });
 
-gulp.task('gen-productioin', ['build'], function () {
-    // Если дошли до сюда, значит всё норм очищаем папку с Production и записываем в неё новую сборку
-    return gulp.src([configData.productionPath], {read: false})
-        .pipe(vinylPaths(del));
-
-});
-
-gulp.task('movToProd', ['gen-productioin'], function () {
+gulp.task('movToProd', function () {
 
     return gulp.src(configData.buildPath + '/**/*.*')
         .pipe(gulp.dest(configData.productionPath));
@@ -133,17 +137,18 @@ gulp.task('movToProd', ['gen-productioin'], function () {
 /********  START General  ********/
 
 /*  Обработчик HTML шаблонов файлов */
-gulp.task('html', ['build-clean'], function () {
-    return gulp.src(configData.src.html, configLocal.structSrcFolder)
+gulp.task('html', function () {
+    gulp.src(configData.src.html, configLocal.structSrcFolder)
         .pipe(_if(!production, changed(watchToChangeBuild(configData.watch.html))))
-        .pipe(_if(!production, rev()))
+        .pipe(_if(!production, rigger()))
+        //.pipe(_if(!production, rev({ revType: 'date' })))
         .pipe(_if(!production, gulp.dest(configData.buildPath)))
         .pipe(_if(!production, reload({stream: true})));
 });
 
 /*  Обработчик JS файлов */
-gulp.task('js', ['build-clean'], function () {
-    return gulp.src(configData.src.js, configLocal.structSrcFolder)
+gulp.task('js', function () {
+    gulp.src(configData.src.js, configLocal.structSrcFolder)
         .pipe(changed(watchToChangeBuild(configData.watch.js)))
         .pipe(_if(!production, sourcemaps.init())) // Для Dev режима
         .pipe(rename({suffix: '.min'}))
@@ -153,17 +158,18 @@ gulp.task('js', ['build-clean'], function () {
         .pipe(_if(!production, reload({stream: true})));
 });
 
-gulp.task('postcss', ['build-clean'], function () {
+gulp.task('postcss', function () {
     // Обрабатываем файлы css
     var processors = [
-        autoprefixer(configLocal.confautoprefixer),
         postcssImport({from: configData.src.postcss}),
-        postcssPxtorem({root_value: 14, unit_precision: 3, replace: true}),
-        postcssSimplevars,
         postcssNested,
+        postcssSimplevars,
+        postcssCalc,
+        postcssPxtorem({root_value: 14, unit_precision: 3, replace: true}),
         colorAlpha,
         // Функции которые используются для построения css файлов, названия методов берутся из имен файлов
-        postcssMixins({mixinsDir: configLocal.currentsrcPath + '/' + configData.src.mixinsDir})
+        postcssMixins({mixinsDir: configLocal.currentsrcPath + '/' + configData.src.mixinsDir}),
+        autoprefixer(configLocal.confautoprefixer)
     ];
 
     return gulp.src(configData.src.postcss, {cwd: configData.srcPath})
@@ -203,16 +209,16 @@ gulp.task('postcss', ['build-clean'], function () {
 });
 
 /*  Копирование всех шрифтов из папки в папку */
-gulp.task('fonts', ['build-clean'], function () {
-    return gulp.src(configData.src.fonts, configLocal.structSrcFolder)
+gulp.task('fonts', function () {
+    gulp.src(configData.src.fonts, configLocal.structSrcFolder)
         .pipe(changed(watchToChangeBuild(configData.watch.fonts)))
         .pipe(gulp.dest(configData.buildPath))
         .pipe(_if(!production, reload({stream: true})));
 });
 
 /*  Обрабока стилей */
-gulp.task('css', ['postcss'], function () {
-    return gulp.src(configData.src.css, configLocal.structSrcFolder)
+gulp.task('css', function () {
+    gulp.src(configData.src.css, configLocal.structSrcFolder)
         .pipe(changed(watchToChangeBuild(configData.watch.css)))
         .pipe(_if(production, sourcemaps.init())) // Для Dev режима
         .pipe(prefix(configLocal.confautoprefixer))
@@ -224,8 +230,8 @@ gulp.task('css', ['postcss'], function () {
 });
 
 /* IMG */
-gulp.task('img', ['build-clean'], function () {
-    return gulp.src(configData.src.img, configLocal.structSrcFolder)
+gulp.task('img', function () {
+    gulp.src(configData.src.img, configLocal.structSrcFolder)
         .pipe(changed(watchToChangeBuild(configData.watch.img)))
         // Pass in options to the task
         .pipe(_if(production,
@@ -241,6 +247,22 @@ gulp.task('img', ['build-clean'], function () {
         .pipe(_if(!production, reload({stream: true})));
 });
 
+gulp.task('copybower', function () {
+    //var cssFilter = gFilter(configData.filter.css);
+    var jsFilter = gFilter(configData.filter.js);
+    var fontFilter = gFilter(configData.filter.fonts);
+    var imgFilter = gFilter(configData.filter.img);
+    gulp.src(mainBowerFiles())
+        .pipe(jsFilter)
+        .pipe(gulp.dest(watchToChangeSrc(configData.watch.js) + '/components'))
+        .pipe(jsFilter.restore())
+        .pipe(fontFilter)
+        .pipe(gulp.dest(watchToChangeSrc(configData.watch.fonts) + '/components'))
+        .pipe(fontFilter.restore())
+        .pipe(imgFilter)
+        .pipe(gulp.dest(watchToChangeSrc(configData.watch.img) + '/components'))
+        .pipe(imgFilter.restore());
+});
 
 gulp.task('watch', function () {
     watch([wrapSrc(configData.watch.html)], function (event, cb) {
@@ -248,6 +270,9 @@ gulp.task('watch', function () {
     });
     watch([wrapSrc(configData.watch.css)], function (event, cb) {
         gulp.start('css');
+    });
+    watch([wrapSrc(configData.watch.postcss)], function (event, cb) {
+        gulp.start('postcss');
     });
     watch([wrapSrc(configData.watch.js)], function (event, cb) {
         gulp.start('js');
@@ -258,26 +283,6 @@ gulp.task('watch', function () {
     watch([wrapSrc(configData.watch.fonts)], function (event, cb) {
         gulp.start('fonts');
     });
-});
-
-// Copypast bower_components for development
-gulp.task('copy-bower', function () {
-    var jsFilter = gFilter('**/*.js');
-    var cssFilter = gFilter('**/*.css');
-    var fontFilter = gFilter(['*.eot', '*.woff', '*.svg', '*.ttf']);
-    var imgFilter = gFilter(['*.jpg', '*.png', '*.gif']);
-    gulp.src(mainBowerFiles())
-        .pipe(jsFilter)
-        .pipe(gulp.dest('Content/NewDesign/javascripts/components'))
-        .pipe(jsFilter.restore())
-        .pipe(fontFilter)
-        .pipe(gulp.dest('Content/NewDesign/fonts'))
-        .pipe(fontFilter.restore())
-        .pipe(imgFilter)
-        .pipe(gulp.dest('Content/NewDesign/images'))
-        .pipe(imgFilter.restore());
-    // .pipe(cssFilter)
-    // .pipe(gulp.dest('Content/NewDesign/stylesheets/components'));
 });
 
 /********  END General  ********/
