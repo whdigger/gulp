@@ -162,13 +162,14 @@ gulp.task('postcss', function () {
     // Обрабатываем файлы css
     var processors = [
         postcssImport({from: configData.src.postcss}),
-        postcssNested,
-        postcssSimplevars,
-        postcssCalc,
-        postcssPxtorem({root_value: 14, unit_precision: 3, replace: true}),
-        colorAlpha,
-        // Функции которые используются для построения css файлов, названия методов берутся из имен файлов
         postcssMixins({mixinsDir: configLocal.currentsrcPath + '/' + configData.src.mixinsDir}),
+        postcssSimplevars,
+        postcssCalc(),
+        postcssNested,
+        postcssDouble,
+        colorAlpha,
+        postcssPxtorem({root_value: 14, unit_precision: 3, replace: true}),
+        // Функции которые используются для построения css файлов, названия методов берутся из имен файлов
         autoprefixer(configLocal.confautoprefixer)
     ];
 

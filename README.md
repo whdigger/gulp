@@ -72,12 +72,20 @@ npm run dev            #Build project on development
 npm run devw           #Build project on development + watch
 npm run devws          #Build project on development + watch + server
 ```
+
 Command for build
 
 ```sh
 gulp            #Build project on development without build-clean
 gulp prod       #Build project on production without build-clean and mov to production
 ```
+
+Troubleshooting
+
+* The command sequence is important for postcss
+* Some of the features you need to call them, not transfer it as a parameter postcssCalc**()**
+* **PostcssMixins** should be on top of the call
+
 
 ## Использование
 
@@ -158,3 +166,9 @@ npm run devws           #Сборка проекта на development + вклю
 gulp                #Сборка проекта на development без build-clean
 gulp prod           #Сборка проекта на production без build-clean и перенесение проекта в production
 ```
+
+Тонкости работы
+
+* Последовательность команд для postcss важна
+* Для некоторых функций необходимо их вызывать прямо в массиве, а не передавать её в качестве параметра. postcssCalc**()**
+* postcssMixins должна быть на верху вызова
