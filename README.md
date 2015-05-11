@@ -6,10 +6,10 @@ Setting project start with install configured data in file build.config.json
 
 ```json
 {
-  "srcPath": "src",                             -- Folder with sources project
-  "buildPath": "build",                         -- Folder for build project
-  "productionPath": "product",                  -- Folder for production server
-  "src": {                                      -- From get sources files
+  "srcPath": "src",                             // Folder with sources project
+  "buildPath": "build",                         // Folder for build project
+  "productionPath": "product",                  // Folder for production server
+  "src": {                                      // From get sources files
     "js": [
       "js/**/*.js"
     ],
@@ -31,12 +31,12 @@ Setting project start with install configured data in file build.config.json
       "*.html"
     ]
   },
-  "change": {                                    -- Move file from "postcss/front/" in folder "css/"
+  "change": {                                    // Move file from "postcss/front/" in folder "css/"
     "postcss": {
       "postcss/front/": "css/"
     }
   },
-  "watch": {                                     -- Watch changed in next directory 
+  "watch": {                                     // Watch changed in next directory 
     "html": "**/*.html",
     "js": "js/**/*.js",
     "css": "css/**/*.css",
@@ -44,7 +44,7 @@ Setting project start with install configured data in file build.config.json
     "img": "img/**/*.*",
     "fonts": "fonts/**/*.*"
   },
-  "filter": {                                     -- Setting for bower, take these file on pattern
+  "filter": {                                     // Setting for bower, take these file on pattern
     "js": "**/*.js",
     "css": "**/*.css",
     "img": [
@@ -64,7 +64,7 @@ Setting project start with install configured data in file build.config.json
 
 Support command
 
-```bash
+```sh
 npm run per            #Set permission in project 755
 npm run ld <directory> #List files in directory, helper for build Json, example: npm run ld src/
 npm run prod           #Build project on production 
@@ -74,7 +74,7 @@ npm run devws          #Build project on development + watch + server
 ```
 Command for build
 
-```bash
+```sh
 gulp            #Build project on development without build-clean
 gulp prod       #Build project on production without build-clean and mov to production
 ```
@@ -85,10 +85,10 @@ gulp prod       #Build project on production without build-clean and mov to prod
 
 ```json
 {
-  "srcPath": "src",                             -- Папка с исходным проектом
-  "buildPath": "build",                         -- Папка для построенного проека
-  "productionPath": "product",                  -- Папка для боевого сервера
-  "src": {                                      -- Откуда брать исходные файлы
+  "srcPath": "src",                             // Папка с исходным проектом
+  "buildPath": "build",                         // Папка для построенного проека
+  "productionPath": "product",                  // Папка для боевого сервера
+  "src": {                                      // Откуда брать исходные файлы
     "js": [
       "js/**/*.js"
     ],
@@ -110,12 +110,12 @@ gulp prod       #Build project on production without build-clean and mov to prod
       "*.html"
     ]
   },
-  "change": {                                    -- Переложить файлы из "postcss/front/" в папку "css/"
+  "change": {                                    // Переложить файлы из "postcss/front/" в папку "css/"
     "postcss": {
       "postcss/front/": "css/"
     }
   },
-  "watch": {                                     -- Наблюдать за изменениями в следующих директориях 
+  "watch": {                                     // Наблюдать за изменениями в следующих директориях 
     "html": "**/*.html",
     "js": "js/**/*.js",
     "css": "css/**/*.css",
@@ -123,7 +123,7 @@ gulp prod       #Build project on production without build-clean and mov to prod
     "img": "img/**/*.*",
     "fonts": "fonts/**/*.*"
   },
-  "filter": {                                     -- Настройки для bower, брать указанные файлы по шаблону
+  "filter": {                                     // Настройки для bower, брать указанные файлы по шаблону
     "js": "**/*.js",
     "css": "**/*.css",
     "img": [
@@ -143,7 +143,7 @@ gulp prod       #Build project on production without build-clean and mov to prod
 
 Вспомогательные команды
 
-```bash
+```sh
 npm run per             #Установка прав на проект 755
 npm run ld <argument>   #Список файлов в директории для Json
 npm run prod            #Сборка проекта на production 
@@ -154,7 +154,7 @@ npm run devws           #Сборка проекта на development + вклю
 
 Команды для сборки 
 
-```bash
+```sh
 gulp                #Сборка проекта на development без build-clean
 gulp prod           #Сборка проекта на production без build-clean и перенесение проекта в production
 ```
