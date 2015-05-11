@@ -48,6 +48,7 @@ var gulp              = require('gulp'),
     postcssPxtorem    = require('postcss-pxtorem'),
     postcssCalc       = require('postcss-calc'),
     colorAlpha        = require('postcss-color-alpha'),
+    postcssDouble     = require('postcss-discard-duplicates'),
 
     rename            = require('gulp-rename'),
     del               = require('del'),
@@ -161,7 +162,7 @@ gulp.task('js', function () {
 gulp.task('postcss', function () {
     // Обрабатываем файлы css
     var processors = [
-        postcssImport({from: configData.src.postcss}),
+        postcssImport({from: wrapSrc(configData.src.importPostcss)}),
         postcssMixins({mixinsDir: configLocal.currentsrcPath + '/' + configData.src.mixinsDir}),
         postcssSimplevars,
         postcssCalc(),

@@ -36,6 +36,7 @@
     "postcss-calc": "^4.0.1",
     "postcss-color-alpha": "0.0.8",
     "postcss-color-function": "^1.2.0",
+    "postcss-discard-duplicates": "^1.1.2",
     "postcss-import": "^5.2.2",
     "postcss-mixins": "^0.1.1",
     "postcss-nested": "^0.2.2",

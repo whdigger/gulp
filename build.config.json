@@ -14,6 +14,7 @@
       "!postcss/front/constant.pcss"
     ],
     "mixinsDir": "postcss/mixins/",
+    "importPostcss": "postcss/front/**/*.pcss",
     "img": [
       "img/**/*.*"
     ],
