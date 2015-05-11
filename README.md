@@ -1,8 +1,11 @@
 # Workflow, automatic generation frontend 
 
 ## Usage
+
 Setting project start with install configured data in file build.config.json
-```{
+
+```json
+{
   "srcPath": "src",                             -- Folder with sources project
   "buildPath": "build",                         -- Folder for build project
   "productionPath": "product",                  -- Folder for production server
@@ -58,25 +61,30 @@ Setting project start with install configured data in file build.config.json
   }
 }
 ```
+
 Support command
-```
-npm run per - Set permission in project 755
-npm run ld <directory> - List files in directory, helper for build Json, example: npm run ld src/
-npm run prod - Build project on production 
-npm run dev - Build project on development
-npm run devw - Build project on development + watch
-npm run devws - Build project on development + watch + server
+
+```bash
+npm run per            #Set permission in project 755
+npm run ld <directory> #List files in directory, helper for build Json, example: npm run ld src/
+npm run prod           #Build project on production 
+npm run dev            #Build project on development
+npm run devw           #Build project on development + watch
+npm run devws          #Build project on development + watch + server
 ```
 Command for build
-```
-gulp - Build project on development without build-clean
-gulp prod - Build project on production without build-clean and mov to production
-```
 
+```bash
+gulp            #Build project on development without build-clean
+gulp prod       #Build project on production without build-clean and mov to production
+```
 
 ## Использование
+
 Настройка проекта начинается с установки конфигурационных данных в файл build.config.json
-```{
+
+```json
+{
   "srcPath": "src",                             -- Папка с исходным проектом
   "buildPath": "build",                         -- Папка для построенного проека
   "productionPath": "product",                  -- Папка для боевого сервера
@@ -132,17 +140,21 @@ gulp prod - Build project on production without build-clean and mov to productio
   }
 }
 ```
+
 Вспомогательные команды
+
 ```
-npm run per - Установка прав на проект 755
-npm run ld <argument> - Список файлов в директории для Json
-npm run prod - Сборка проекта на production 
-npm run dev - Сборка проекта на development
-npm run devw - Сборка проекта на development + включение watch
-npm run devws - Сборка проекта на development + включение watch + сервера
+npm run per             #Установка прав на проект 755
+npm run ld <argument>   #Список файлов в директории для Json
+npm run prod            #Сборка проекта на production 
+npm run dev             #Сборка проекта на development
+npm run devw            #Сборка проекта на development + включение watch
+npm run devws           #Сборка проекта на development + включение watch + сервера
 ```
+
 Команды для сборки 
+
 ```
-gulp - Сборка проекта на development без build-clean
-gulp prod - Сборка проекта на production без build-clean и перенесение проекта в production
+gulp                #Сборка проекта на development без build-clean
+gulp prod           #Сборка проекта на production без build-clean и перенесение проекта в production
 ```
