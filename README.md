@@ -143,7 +143,7 @@ gulp prod       #Build project on production without build-clean and mov to prod
 
 Вспомогательные команды
 
-```
+```bash
 npm run per             #Установка прав на проект 755
 npm run ld <argument>   #Список файлов в директории для Json
 npm run prod            #Сборка проекта на production 
@@ -154,7 +154,7 @@ npm run devws           #Сборка проекта на development + вклю
 
 Команды для сборки 
 
-```
+```bash
 gulp                #Сборка проекта на development без build-clean
 gulp prod           #Сборка проекта на production без build-clean и перенесение проекта в production
 ```
